@@ -1,0 +1,40 @@
+#Процесс ДДК
+preprocessing:
+  change_type_columns:
+    Время_года: category
+    Ручной_труд_тип_экскаватора: category
+    Тип_изоляции: category
+    Обводненность: category
+    Классификация_грунта: category
+
+  drop_columns: ['Unnamed: 0']
+  train_path: C:/Users/User/Desktop/mac/Desktop/trneft0.csv
+  unique_values_path: C:/Users/User/Desktop/ddk/processed/unique_values.json
+  train_path_proc: C:/Users/User/Desktop/ddk/processed/train.csv
+  test_path_proc: C:/Users/User/Desktop/ddk/processed/test.csv
+  test_size: 0.25
+  target_column: 'Общее_время'
+  random_state: 10
+  real_predict_eval: C:/Users/User/Desktop/ddk/real_predict_eval/real_predict_eval.csv
+
+
+train:
+  n_trials: 10
+  n_folds: 5
+  random_state: 10
+  target_column: 'Общее время'
+  model_path: C:/Users/User/Desktop/ddk/models/model_lgb.joblib
+  study_path: C:/Users/User/Desktop/ddk/models/study.joblib
+  metrics_path: C:/Users/User/Desktop/ddk/report/metrics.json
+
+
+
+
+endpoints:
+  train: 'http://localhost:8000/train'
+  prediction_input: 'http://localhost:8000/predict_input'
+  prediction_from_file: 'http://localhost:8000/docs#/default/prediction_predict_post'
+
+#  train: 'http://localhost:8001/train'
+#  prediction_input: 'http://localhost:8001/predict_input'
+#  prediction_from_file: 'http://localhost:8001/predict'
